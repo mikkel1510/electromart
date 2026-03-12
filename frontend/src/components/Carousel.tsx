@@ -5,16 +5,17 @@ import 'swiper/css';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css'; // core Swiper
 import 'swiper/css/navigation'; // navigation module
+import { ProductDTO } from '../../../shared/dto/ProductDTO';
 
 
 
 const Carousel = () => {
-  const [products, setProducts] = useState<any[]>([]);
+  const [products, setProducts] = useState<ProductDTO[]>([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/get-product-recommendations');
+        const response = await axios.get<ProductDTO[]>('http://localhost:3001/get-product-recommendations');
         setProducts(response.data);
       } catch (error) {
         console.error('Error fetching products:', error);
@@ -40,7 +41,7 @@ const Carousel = () => {
                 <img src={product.imageUrl} alt={product.title} />
               </div>
               <h3>{product.title}</h3>
-              <p>Price: ${Math.round(product.basePrice * (1 - product.discountRate) * product.taxRate)}</p>
+              <p>Price: ${product.price}</p>
             </SwiperSlide>
           ))}
         </Swiper>

@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Phone } from '../models/Phone';
+import { ProductDTO } from '../../../shared/dto/ProductDTO';
 
 const Phones = () => {
-  const [listOfphones, setPhones] = useState<Phone[]>([]);
+  const [listOfphones, setPhones] = useState<ProductDTO[]>([]);
 
   useEffect(() => {
     const fetchPhones = async () => {
       try {
-        const response = await axios.get<Phone[]>('http://localhost:3001/get-products-by-category?productType=Phone');
-        const phones = response.data.map(item => new Phone(item.title, item.imageUrl, item.basePrice));
-        setPhones(phones);
+        const response = await axios.get<ProductDTO[]>('http://localhost:3001/get-products-by-category?productType=Phone');
+        setPhones(response.data);
       } catch (error) {
         console.error('Error fetching phones:', error);
         setPhones([]);
@@ -28,7 +27,7 @@ const Phones = () => {
           <div className='product-item' key={index}>
             <img src={phone.imageUrl} alt={phone.title} style={{ width: '100px', height: '100px' }} />
             <h3>{phone.title}</h3>
-            <p>Price: ${phone.getPrice()}</p>
+            <p>Price: ${phone.price}</p>
           </div>
         ))}
       </div>

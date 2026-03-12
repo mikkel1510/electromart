@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { PlayStation } from '../models/PlayStation';
+import { ProductDTO } from '../../../shared/dto/ProductDTO';
 
 const Playstations = () => {
-  const [listOfplaystations, setPlaystations] = useState<PlayStation[]>([]);
+  const [listOfplaystations, setPlaystations] = useState<ProductDTO[]>([]);
 
   useEffect(() => {
     const fetchPlaystations = async () => {
       try {
-        const response = await axios.get<PlayStation[]>('http://localhost:3001/get-products-by-category?productType=PlayStation');
-        const playstations = response.data.map(item => new PlayStation(item.title, item.imageUrl, item.basePrice));
-        setPlaystations(playstations);
+        const response = await axios.get<ProductDTO[]>('http://localhost:3001/get-products-by-category?productType=PlayStation');
+        setPlaystations(response.data);
       } catch (error) {
         console.error('Error fetching PlayStations:', error);
         setPlaystations([]);
@@ -28,7 +27,7 @@ const Playstations = () => {
           <div className='product-item' key={index}>
             <img src={playstation.imageUrl} alt={playstation.title} style={{ width: '100px', height: '100px' }} />
             <h3>{playstation.title}</h3>
-            <p>Price: ${playstation.getPrice()}</p>
+            <p>Price: ${playstation.price}</p>
           </div>
         ))}
       </div>

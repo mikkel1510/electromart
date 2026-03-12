@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
-import { recommendedProducts } from './dummyData';
+import { recommendedProducts } from './productInformation/dummyData';
+import { toProductDTO } from './controllers/ModelToDTO';
 
 const app = express();
 const port = 3001;
@@ -9,19 +10,13 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/get-product-recommendations", (_: Request, res: Response) => {
-  const randomNumber = Math.random();
-
-  if (randomNumber > 0.5) {
     const shuffledProducts = recommendedProducts
       .map(value => ({ value, sort: Math.random() }))
       .sort((a, b) => a.sort - b.sort)
       .map(({ value }) => value);
 
     const randomProducts = shuffledProducts.slice(0, 5);
-    return res.json(randomProducts);
-  }
-
-  return res.status(500).send('Internal Server Error');
+    return res.json(randomProducts.map(toProductDTO));
 });
 
 app.get("/get-products-by-category", (req: Request, res: Response) => {
@@ -29,7 +24,7 @@ app.get("/get-products-by-category", (req: Request, res: Response) => {
     if (product.productType == req.query.productType) return product;
   })
 
-  return res.json(products);
+  return res.json(products.map(toProductDTO));
 });
 
 app.get("/unfinished-feature", (_: Request, res: Response) => {
