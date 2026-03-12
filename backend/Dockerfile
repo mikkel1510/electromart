@@ -2,10 +2,15 @@ FROM node:16
 
 WORKDIR /usr/src/app
 
-COPY package*.json ./
+COPY backend/package*.json ./backend/
+WORKDIR /usr/src/app/backend
 RUN npm install
 
-COPY . .
+WORKDIR /usr/src/app
+COPY backend/ ./backend/
+COPY shared/ ./shared/
+
+WORKDIR /usr/src/app/backend
 
 RUN npm run build
 EXPOSE 3001

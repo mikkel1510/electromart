@@ -1,11 +1,16 @@
 FROM node:16
 
-WORKDIR /app
+WORKDIR /usr/src/app
 
-COPY package*.json ./
+COPY frontend/package*.json ./frontend/
+WORKDIR /usr/src/app/frontend
 RUN npm install
 
-COPY . .
+WORKDIR /usr/src/app
+COPY frontend/ ./frontend/
+COPY shared/ ./shared/
+
+WORKDIR /usr/src/app/frontend
 
 RUN npm run build
 RUN npm install -g serve
