@@ -1,7 +1,7 @@
-import { Laptop } from "./models/Laptop";
-import { Phone } from "./models/Phone";
-import { PlayStation } from "./models/PlayStation";
-import { SSD } from "./models/SSD";
+import { Laptop } from "../../frontend/src/models/Laptop";
+import { Phone } from "../../frontend/src/models/Phone";
+import { PlayStation } from "../../frontend/src/models/PlayStation";
+import { SSD } from "../../frontend/src/models/SSD";
 
 export const recommendedProducts: (Laptop | Phone | SSD | PlayStation)[] = [
   // Laptops
