@@ -1,8 +1,9 @@
+import { config } from "../config";
 import { Product } from "./Product";
 import { ProductType } from "./ProductType";
 
 export class Phone extends Product{
-  discountRate = 0.1
-  taxRate = 1.15
-  productType = ProductType.Phone
+  constructor(title: string, imageUrl: string, basePrice: number){
+    super(title, imageUrl, basePrice, ProductType.Phone)
+  }
 }
