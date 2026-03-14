@@ -12,7 +12,7 @@ app.use(express.json());
 app.get("/get-product-recommendations", requireFeature("getProductRecommendations"), (_: Request, res: Response) => {
   const randomNumber = Math.random();
 
-  
+  if (randomNumber > 0.5) {
   const shuffledProducts = recommendedProducts
       .map(value => ({ value, sort: Math.random() }))
       .sort((a, b) => a.sort - b.sort)
@@ -20,6 +20,9 @@ app.get("/get-product-recommendations", requireFeature("getProductRecommendation
 
     const randomProducts = shuffledProducts.slice(0, 5);
     return res.json(randomProducts);
+  }
+
+  return res.status(500).send("Internal Server Error")
 });
 
 app.get("/get-products-by-category", requireFeature("getProductsByCategory"), (req: Request, res: Response) => {
