@@ -3,7 +3,6 @@ import { ProductType } from "./ProductType";
 
 export class Laptop extends Product{
   constructor(title: string, imageUrl: string, basePrice: number){
-    super(title, imageUrl, basePrice)
-    this.productType = ProductType.Laptop
+    super(title, imageUrl, basePrice, ProductType.Laptop)
   }
 }
