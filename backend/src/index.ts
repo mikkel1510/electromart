@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import { recommendedProducts } from './dummyData';
+import { requireFeature } from './requireFeature';
 
 const app = express();
 const port = 3001;
@@ -8,7 +9,7 @@ app.use(cors());
 
 app.use(express.json());
 
-app.get("/get-product-recommendations", (_: Request, res: Response) => {
+app.get("/get-product-recommendations", requireFeature("getProductRecommendations"), (_: Request, res: Response) => {
   const randomNumber = Math.random();
 
   
@@ -21,7 +22,7 @@ app.get("/get-product-recommendations", (_: Request, res: Response) => {
     return res.json(randomProducts);
 });
 
-app.get("/get-products-by-category", (req: Request, res: Response) => {
+app.get("/get-products-by-category", requireFeature("getProductsByCategory"), (req: Request, res: Response) => {
   const products = recommendedProducts.filter((product) => {
     if (product.productType == req.query.productType) return product;
   })
@@ -29,7 +30,8 @@ app.get("/get-products-by-category", (req: Request, res: Response) => {
   return res.json(products);
 });
 
-app.get("/unfinished-feature", (_: Request, res: Response) => {
+app.get("/unfinished-feature", requireFeature("unfinishedFeature"), (_: Request, res: Response) => {
+
   // Oh no, this feature is not ready for production!
   return res.status(500).send('Internal Server Error');
 });
