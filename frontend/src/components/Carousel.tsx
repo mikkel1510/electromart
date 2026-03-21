@@ -6,7 +6,7 @@ import { Navigation } from 'swiper/modules';
 import 'swiper/css'; // core Swiper
 import 'swiper/css/navigation'; // navigation module
 
-
+const CACHE_KEY = "recommendedProducts"
 
 const Carousel = () => {
   const [products, setProducts] = useState<any[]>([]);
@@ -15,10 +15,17 @@ const Carousel = () => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get('http://localhost:3001/get-product-recommendations');
+        localStorage.setItem(CACHE_KEY, JSON.stringify(response.data))
         setProducts(response.data);
       } catch (error) {
-        console.error('Error fetching products:', error);
-        setProducts([]);
+        const cachedProducts = localStorage.getItem(CACHE_KEY)
+        if (cachedProducts){
+          setProducts(JSON.parse(cachedProducts))
+          console.log("Displaying cached products")
+        } else {
+          const response = await axios.get('http://localhost:3001/get-fallback-products')
+          setProducts(response.data);
+        }
       }
     };
 
@@ -30,7 +37,7 @@ const Carousel = () => {
       <h2>Recommended Products!</h2>
 
       {products.length === 0 ? (
-        <p>Unable to get recommended products...</p>
+        <p>Loading recommended products...</p>
       ) : (
         <Swiper modules={[Navigation]}
           navigation spaceBetween={50} slidesPerView={3}>

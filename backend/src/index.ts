@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { recommendedProducts } from './dummyData';
+import { fallbackProducts, recommendedProducts } from './dummyData';
 import { requireFeature } from './requireFeature';
 
 const app = express();
@@ -24,6 +24,10 @@ app.get("/get-product-recommendations", requireFeature("getProductRecommendation
 
   return res.status(500).send("Internal Server Error")
 });
+
+app.get("/get-fallback-products", requireFeature("getFallbackProducts"), (_: Request, res: Response) => {
+  return res.json(fallbackProducts)
+})
 
 app.get("/get-products-by-category", requireFeature("getProductsByCategory"), (req: Request, res: Response) => {
   const products = recommendedProducts.filter((product) => {

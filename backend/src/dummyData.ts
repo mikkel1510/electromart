@@ -2,6 +2,7 @@ import { Laptop } from "../../frontend/src/models/Laptop";
 import { Phone } from "../../frontend/src/models/Phone";
 import { PlayStation } from "../../frontend/src/models/PlayStation";
 import { SSD } from "../../frontend/src/models/SSD";
+import { Product } from "../../frontend/src/models/Product";
 
 export const recommendedProducts: (Laptop | Phone | SSD | PlayStation)[] = [
   // Laptops
@@ -32,3 +33,20 @@ export const recommendedProducts: (Laptop | Phone | SSD | PlayStation)[] = [
   new SSD("SSD Portable P1 1TB", "https://www.proshop.dk/Images/915x900/3076198_60558dd3e988.jpg", 109),
   new SSD("SSD Extreme X2 2TB", "https://geekd.dk/cdn/shop/products/be503047-b696-44b3-9e14-58b373ec3abd.jpg?v=1642682050", 299),
 ];
+
+export const fallbackProducts: (Product)[] = [
+  new Laptop("Laptop Fallback 16'", "https://i5.walmartimages.com/seo/HP-Stream-14-Laptop-Intel-Celeron-N4000-4GB-SDRAM-32GB-eMMC-Office-365-1-yr-Royal-Blue_4f941fe6-0cf3-42af-a06c-7532138492fc_2.cb8e85270e731cb1ef85d431e49f0bf2.jpeg", 2399),
+  new Laptop("Laptop Fallback W10", "https://pcudlejning.dk/wp-content/uploads/2022/09/Lenovo-Legion-Y540.jpeg", 2599),
+
+  // Phones
+  new Phone("Smartphone Fallback X12", "https://www.elgiganten.dk/image/dv_web_D180001002838576/361914/iphone-13-5g-smartphone-128gb-starlight--pdp_zoom-3000--pdp_main-540.jpg", 999),
+  new Phone("Smartphone Fallback N10", "https://cf-images.dustin.eu/cdn-cgi/image/format=auto,quality=75,width=828,,fit=contain/image/d200001272319/apple-iphone-15-128gb-pink.jpg", 899),
+
+  // PlayStations
+  new PlayStation("PlayStation 5 Fallback Edition", "https://salgsbutikken.dk/images/Sony-PlayStation-5-(PS5)-Digital-Edition.jpg", 499),
+  new PlayStation("PlayStation Classic Fallback Edition", "https://cdn.cdon.com/media-dynamic/images/product/cloud/store/Consoles/000/108/784/401/108784401-206715428-11453-org.jpg?cache=133090911364066900&impolicy=product", 59),
+
+  // SSDs
+  new SSD("SSD Fallback 1TB", "https://www.avxperten.dk/billeder/wd-green-ssd-hardisk-1tb-sata-iii-2-5tm-big.jpg", 149),
+  new SSD("SSD Fallback X2 2TB", "https://geekd.dk/cdn/shop/products/be503047-b696-44b3-9e14-58b373ec3abd.jpg?v=1642682050", 299),
+]
